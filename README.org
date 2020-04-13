@@ -1,0 +1,24 @@
+* intro
+  Simple expression parser that takes { ... } and spits out Lisp, skipping everything else
+* DSL
+  expressions are enclosed in matching braces `{}`
+  {x.y.z} --> (slot-value 'z (slot-value 'y x))
+* build
+#+name: dsl
+#+begin_src lisp :results output
+ (ql:quickload :expr-dsl)
+#+end_src
+
+#+name: dsl
+#+begin_src lisp :results output
+ (ql:quickload :expr-dsl/test)
+#+end_src
+
+#+name: dsl
+#+begin_src lisp :results output
+  (expr-dsl::test)
+#+end_src
+
+#+RESULTS: dsl
+:       result=
+
