@@ -2,21 +2,6 @@
 
 (defparameter *dsl*
   "
-= expr
-  {[ ?EOF EOF >
-   | ?'{' @expression '}'
-   | * >
-  ]}
-
-= expression
-  '{' 
-  {[ ?'{' @expression
-   | ?SYMBOL @symbolexpr
-   | * >
-  ]}  
-  '}'
-
-
 = symbolexpr
   SYMBOL
   [ ?'.' 
@@ -27,6 +12,22 @@
   | * 
     emitSymbol
   ]
+
+= expression
+  '{' 
+  {[ ?'{' @expression
+   | ?SYMBOL @symbolexpr
+   | * >
+  ]}  
+  '}'
+
+
+= expr
+  {[ ?EOF EOF >
+   | ?'{' @expression '}'
+   | * >
+  ]}
+
 
 ")
 
