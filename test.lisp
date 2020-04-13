@@ -11,5 +11,5 @@ even 123 more garbage
 
 (defun test ()
   (let ((p (make-instance 'expr-parser)))
-    (let ((r (pasm:transpile p *dsl* *test-string* 'parsing-assembler::expr)))
+    (let ((r (pasm:transpile p *dsl* *test-string* 'expr)))
       (format *standard-output* "~&      result=~a~%" r))))
