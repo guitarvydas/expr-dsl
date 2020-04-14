@@ -1,24 +1,12 @@
 (in-package :expr-dsl)
 
-(defparameter *test-string* "
-garbage more garbage
-!@#{x.y}!@#
-% a garbage comment
-   % 3 spaces then a comment
-123 % an integer then a comment
-even 123 more garbage
-")
+(defparameter *test-string3* "!@#{x.y.z}!@#")
 
-#+nil(defparameter *test-string* "
-garbage more garbage
-!@#{x}!@#
-% a garbage comment
-   % 3 spaces then a comment
-123 % an integer then a comment
-even 123 more garbage
-")
+(defparameter *test-string2* "!@#{x.y}!@#")
 
-#+nil(defparameter *test-string* "
+(defparameter *test-string1* "!@#{x}!@#")
+
+(defparameter *test-string0* "
 garbage more garbage
 ... ...
 % a garbage comment
@@ -29,11 +17,17 @@ even 123 more garbage
 
 (defun test ()
   (let ((p (make-instance 'expr-parser)))
-    (let ((r (pasm:transpile p *dsl* *test-string* 'expr)))
-      (format *standard-output* "~&      result=~a~%" r))))
+    (let ((r (pasm:transpile p *dsl* *test-string0* 'expr)))
+      (format *standard-output* "~&      result0=~a~%" r))
+    (let ((r (pasm:transpile p *dsl* *test-string1* 'expr)))
+      (format *standard-output* "~&      result1=~a~%" r))
+    (let ((r (pasm:transpile p *dsl* *test-string2* 'expr)))
+      (format *standard-output* "~&      result2=~a~%" r))
+#+nil    (let ((r (pasm:transpile p *dsl* *test-string3* 'expr)))
+      (format *standard-output* "~&      result3=~a~%" r))))
 
 
-(defun aa ()
+#+nil (defun aa ()
   ;; routine to help me debug the workflow...
   (let ((p (make-instance 'expr-parser)))
     

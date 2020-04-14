@@ -3,25 +3,22 @@
 (defparameter *dsl*
   "
 = symbolexpr
-  SYMBOL symbolPush
+  SYMBOL
   [ ?'.' 
+    exprPushSymbol
     '.'
-    emitFieldRefOpen
-    @symbolexpr
-    emitSpace
-    symbolEmit
-    symbolPop
-    emitFieldRefClose
+    SYMBOL
+    exprPushSymbol
+    exprReplaceFieldRefQuoted
   | * 
-    symbolEmit
-    symbolPop
+    exprPushSymbol
   ]
 
 = expression
   '{' 
   {[ ?'{' @expression
    | ?'}' >
-   | ?SYMBOL @symbolexpr
+   | ?SYMBOL @symbolexpr exprEmit exprPop
    | * >
   ]}  
   '}'
@@ -38,21 +35,21 @@
 
 ;; mechanisms
 (defclass expr-parser (pasm:parser)
-  ((symbolStack :accessor symbolStack)))
+  ((exprStack :accessor exprStack)))
 
 (defmethod initially ((self expr-parser) token-list)
-  (setf (symbolStack self) nil)
+  (setf (exprStack self) nil)
   (call-next-method))
 
-(defmethod emitFieldRefOpen  ((self parser)) (pasm:emit-string self " (slot-value '"))
-(defmethod emitFieldRefClose ((self parser)) (pasm:emit-string self ") "))
-(defmethod emitSymbol ((self parser)) (pasm:emit-string self (scanner:token-text (pasm:accepted-token self))))
+(defmethod exprPushSymbol ((self parser)) (push (scanner:token-text (pasm:accepted-token self)) (exprStack self)))
+(defmethod exprPop ((self parser)) (pop (exprStack self)))
+(defmethod exprEmit ((self parser)) (pasm:emit-string self (first (exprStack self))))
+(defmethod exprReplaceFieldRefQuoted ((self parser))
+  (let ((r-op (pop (exprStack self))))
+    (let ((l-op (pop (exprStack self))))
+      (push (format nil "(slot-value '~a ~a)" r-op l-op) (exprStack self)))))
 (defmethod emitAcceptedToken ((self parser)) 
   (pasm:emit-string self (scanner:token-text (pasm:accepted-token self))))
-(defmethod symbolPush ((self parser)) (push (scanner:token-text (pasm:accepted-token self)) (symbolStack self)))
-(defmethod symbolPop  ((self parser)) (pop (symbolStack self)))
-(defmethod symbolEmit ((self parser)) (pasm:emit-string self (first (symbolStack self))))
-(defmethod emitSpace ((self parser)) (pasm:emit-string self " "))
 ;; end mechanisms
 
 
