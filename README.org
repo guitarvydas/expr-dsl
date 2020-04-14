@@ -22,13 +22,12 @@
 #+end_src
 
 #+RESULTS: dsl
-: To load "expr-dsl/test":
-:   Load 1 ASDF system:
-:     expr-dsl/test
-: ; Loading "expr-dsl/test"
-: [package loops]...................................
-: [package alexandria.1.0.0]........................
-: [package scanner].................................
-: [package parsing-assembler].......................
-: [package expr-dsl].
+:       result=
+: garbage more garbage
+: !@# (slot-value 'y x) !@#
+: % a garbage comment
+:    % 3 spaces then a comment
+: 123 % an integer then a comment
+: even 123 more garbage
+: 
 

@@ -2,6 +2,15 @@
 
 (defparameter *test-string* "
 garbage more garbage
+!@#{x.y}!@#
+% a garbage comment
+   % 3 spaces then a comment
+123 % an integer then a comment
+even 123 more garbage
+")
+
+#+nil(defparameter *test-string* "
+garbage more garbage
 !@#{x}!@#
 % a garbage comment
    % 3 spaces then a comment
