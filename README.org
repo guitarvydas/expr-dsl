@@ -6,11 +6,13 @@
 * build
 #+name: dsl
 #+begin_src lisp :results output
+ (uiop:run-program "rm -rf ~/.cache/common-lisp ; rm -rf */*.fasl ; rm -rf */*~")
  (ql:quickload :expr-dsl)
 #+end_src
 
 #+name: dsl
 #+begin_src lisp :results output
+ (uiop:run-program "rm -rf ~/.cache/common-lisp ; rm -rf */*.fasl ; rm -rf */*~")
  (ql:quickload :expr-dsl/test)
 #+end_src
 
@@ -20,5 +22,13 @@
 #+end_src
 
 #+RESULTS: dsl
-:       result=
+: To load "expr-dsl/test":
+:   Load 1 ASDF system:
+:     expr-dsl/test
+: ; Loading "expr-dsl/test"
+: [package loops]...................................
+: [package alexandria.1.0.0]........................
+: [package scanner].................................
+: [package parsing-assembler].......................
+: [package expr-dsl].
 
