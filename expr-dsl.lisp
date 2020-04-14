@@ -2,23 +2,26 @@
 
 (defparameter *dsl*
   "
-= symbolexpr
-  SYMBOL
+= fieldRef
   [ ?'.' 
-    exprPushSymbol
     '.'
     SYMBOL
     exprPushSymbol
     exprReplaceFieldRefQuoted
+    @fieldRef
   | * 
-    exprPushSymbol
   ]
 
 = expression
   '{' 
   {[ ?'{' @expression
    | ?'}' >
-   | ?SYMBOL @symbolexpr exprEmit exprPop
+   | ?SYMBOL 
+     SYMBOL 
+     exprPushSymbol
+     @fieldRef
+     exprEmit 
+     exprPop
    | * >
   ]}  
   '}'
@@ -47,7 +50,7 @@
 (defmethod exprReplaceFieldRefQuoted ((self parser))
   (let ((r-op (pop (exprStack self))))
     (let ((l-op (pop (exprStack self))))
-      (push (format nil "(slot-value '~a ~a)" r-op l-op) (exprStack self)))))
+      (push (format nil " (slot-value '~a ~a) " r-op l-op) (exprStack self)))))
 (defmethod emitAcceptedToken ((self parser)) 
   (pasm:emit-string self (scanner:token-text (pasm:accepted-token self))))
 ;; end mechanisms

@@ -22,12 +22,17 @@
 #+end_src
 
 #+RESULTS: dsl
-:       result=
-: garbage more garbage
-: !@# (slot-value 'y x) !@#
-: % a garbage comment
-:    % 3 spaces then a comment
-: 123 % an integer then a comment
-: even 123 more garbage
-: 
+#+begin_example
+      result0=
+garbage more garbage
+... ...
+% a garbage comment
+   % 3 spaces then a comment
+123 % an integer then a comment
+even 123 more garbage
+
+      result1=!@#x!@#
+      result2=!@# (slot-value 'y x) !@#
+      result3=!@# (slot-value 'z  (slot-value 'y  (slot-value 'x a) ) ) !@#
+#+end_example
 

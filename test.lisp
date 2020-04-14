@@ -1,6 +1,6 @@
 (in-package :expr-dsl)
 
-(defparameter *test-string3* "!@#{x.y.z}!@#")
+(defparameter *test-string3* "!@#{a.x.y.z}!@#")
 
 (defparameter *test-string2* "!@#{x.y}!@#")
 
@@ -23,7 +23,7 @@ even 123 more garbage
       (format *standard-output* "~&      result1=~a~%" r))
     (let ((r (pasm:transpile p *dsl* *test-string2* 'expr)))
       (format *standard-output* "~&      result2=~a~%" r))
-#+nil    (let ((r (pasm:transpile p *dsl* *test-string3* 'expr)))
+    (let ((r (pasm:transpile p *dsl* *test-string3* 'expr)))
       (format *standard-output* "~&      result3=~a~%" r))))
 
 
