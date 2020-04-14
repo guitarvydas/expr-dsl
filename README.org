@@ -1,5 +1,6 @@
 * intro
-  Simple expression parser that takes { ... } and spits out Lisp, skipping everything else
+  Simple expression parser that preserves space, finds all brace-bracketed expressions { ... } and replaces them with Lisp code
+  See the test strings in test.lisp.
 * DSL
   expressions are enclosed in matching braces `{}`
   {x.y.z} --> (slot-value 'z (slot-value 'y x))
@@ -34,5 +35,14 @@ even 123 more garbage
       result1=!@#x!@#
       result2=!@# (slot-value 'y x) !@#
       result3=!@# (slot-value 'z  (slot-value 'y  (slot-value 'x a) ) ) !@#
+      result4=
+garbage more garbage
+... a ...  (slot-value 'x a)  ...
+...  (slot-value 'z  (slot-value 'y  (slot-value 'x a) ) )  ... a ...
+% a garbage comment
+   % 3 spaces then a comment
+123 % an integer then a comment
+even 123 more garbage
+
 #+end_example
 

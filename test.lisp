@@ -1,5 +1,15 @@
 (in-package :expr-dsl)
 
+(defparameter *test-string4* "
+garbage more garbage
+... {a} ... {a.x} ...
+... {a.x.y.z} ... {a} ...
+% a garbage comment
+   % 3 spaces then a comment
+123 % an integer then a comment
+even 123 more garbage
+")
+
 (defparameter *test-string3* "!@#{a.x.y.z}!@#")
 
 (defparameter *test-string2* "!@#{x.y}!@#")
@@ -24,7 +34,9 @@ even 123 more garbage
     (let ((r (pasm:transpile p *dsl* *test-string2* 'expr)))
       (format *standard-output* "~&      result2=~a~%" r))
     (let ((r (pasm:transpile p *dsl* *test-string3* 'expr)))
-      (format *standard-output* "~&      result3=~a~%" r))))
+      (format *standard-output* "~&      result3=~a~%" r))
+    (let ((r (pasm:transpile p *dsl* *test-string4* 'expr)))
+      (format *standard-output* "~&      result4=~a~%" r))))
 
 
 #+nil (defun aa ()
